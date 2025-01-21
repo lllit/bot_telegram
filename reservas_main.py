@@ -3,9 +3,11 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters,ContextTypes, CallbackQueryHandler, PreCheckoutQueryHandler
 import os
 from dotenv import load_dotenv
+import asyncio
 
 from reservas import GoogleCalendarManager
 from datetime import datetime, timedelta
+import threading
 
 load_dotenv()
 
@@ -17,9 +19,9 @@ MAPS = "https://maps.app.goo.gl/JF7qNA8vXvBfKEu9A"
 
 calendar_manager = GoogleCalendarManager()
 
-flask_app = Flask(__name__)
+app = Flask(__name__)
 
-@flask_app.route('/')
+@app.route('/')
 def index():
     return "Bot de Reservas de Mapping está en funcionamiento."
 
@@ -319,33 +321,40 @@ async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.callback_query.message.reply_text('Ha ocurrido un error')
 
 
-def main() -> None:
+def run_bot() -> None:
     print('========= Iniciando Bot ==============')
-    app = Application.builder().token(token).build()
+    telegram_app = Application.builder().token(token).build()
 
     # Crear comandos
-    app.add_handler(CommandHandler('start', start))
-    app.add_handler(CommandHandler('reservas', reservas))
-    app.add_handler(CommandHandler('upcoming', upcoming_events))
-    app.add_handler(CommandHandler('servicios_mapping', servicios_mapping))
+    telegram_app.add_handler(CommandHandler('start', start))
+    telegram_app.add_handler(CommandHandler('reservas', reservas))
+    telegram_app.add_handler(CommandHandler('upcoming', upcoming_events))
+    telegram_app.add_handler(CommandHandler('servicios_mapping', servicios_mapping))
 
-    app.add_handler(CallbackQueryHandler(button))
+    telegram_app.add_handler(CallbackQueryHandler(button))
 
-    app.add_handler(CommandHandler('help', help))
-    app.add_handler(CommandHandler('horarios', horarios))
+    telegram_app.add_handler(CommandHandler('help', help))
+    telegram_app.add_handler(CommandHandler('horarios', horarios))
 
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    telegram_app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
 
 
 
     # Crear errores
-    app.add_error_handler(error)
+    telegram_app.add_error_handler(error)
 
     # Iniciar bot
     print('Bot iniciado')
 
-    app.run_polling(allowed_updates=Update.ALL_TYPES)
+    # Crear un nuevo bucle de eventos para el hilo del bot
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    telegram_app.run_polling(allowed_updates=Update.ALL_TYPES)
 
 if __name__ == '__main__':
-    main()
+    bot_thread = threading.Thread(target=run_bot)
+    bot_thread.start()
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
