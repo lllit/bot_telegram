@@ -27,7 +27,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     keyboard = [
         [
-            InlineKeyboardButton("📖 Reservar cita", callback_data="reservar"),
+            InlineKeyboardButton("📖 Reservar", callback_data="reservar"),
             InlineKeyboardButton("🔍 Precios", callback_data="masinformacion"),
             
         ],
@@ -46,7 +46,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     reply_markup = InlineKeyboardMarkup(keyboard)
 
 
-    await update.message.reply_text("🖖 Bienvenido, ¿Que te gustaria hacer?", reply_markup=reply_markup)
+    await update.message.reply_text("🖖 Bienvenid@, ¿Que te gustaria hacer?", reply_markup=reply_markup)
 
 
 # ------ Reservas -----------------
@@ -146,15 +146,18 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 
-
+# ---------- AYUDA SECTION ---------
 async def help(update: Update, context: ContextTypes):
 
     await update.message.reply_text("Para abrir el menu de opciones presiona /start")
 
+
+# ---- Horarios --------
 async def horarios(update: Update, context: ContextTypes):
     await update.message.reply_text("Nuestro horario es de lunes a viernes de 9:00 a 18:00.")
 
 
+# ----- Eventos Proximos ------
 async def upcoming_events(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         events = calendar_manager.list_upcoming_events()
@@ -239,7 +242,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 
-
+# ----- ERROR ----
 async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(context.error)
     if update and update.message:
