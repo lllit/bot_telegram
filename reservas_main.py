@@ -344,17 +344,24 @@ def run_bot() -> None:
     # Crear errores
     telegram_app.add_error_handler(error)
 
+
+    
+
     # Iniciar bot
     print('Bot iniciado')
 
     # Crear un nuevo bucle de eventos para el hilo del bot
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
+    # loop = asyncio.new_event_loop()
+    # asyncio.set_event_loop(loop)
 
     telegram_app.run_polling(allowed_updates=Update.ALL_TYPES)
 
+    
+
+
+
 if __name__ == '__main__':
-    bot_thread = threading.Thread(target=run_bot)
-    bot_thread.start()
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    # bot_thread = threading.Thread(target=run_bot)
+    # bot_thread.start()
+    run_bot()
+    
