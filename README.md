@@ -19,7 +19,7 @@ Este proyecto es parte de mi desarrollo personal como estudiante de programació
 
 ## 🎨 Sobre mí
 
-- **Nombre artístico**: LLLIT
+- **Nombre artístico**: [LLLIT](https://www.instagram.com/lllit_3/)
 - **Profesión**: Productor musical y visualista
 - **Software principal**: TouchDesigner
 - **Repositorio del proyecto**: [Bot telegram](https://github.com/lllit/bot_telegram.git)
