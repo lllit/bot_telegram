@@ -28,7 +28,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     keyboard = [
         [
             InlineKeyboardButton("📖 Reservar cita", callback_data="reservar"),
-            InlineKeyboardButton("🎨 Nuestros Servicios", url=URL_IG),
+            InlineKeyboardButton("🔍 Precios", callback_data="masinformacion"),
+            
+        ],
+        [
+            InlineKeyboardButton("🎨 Nuestros Servicios", url=URL_IG)
         ],
         [
             InlineKeyboardButton("⏱️ Horario", callback_data="horario"),
@@ -45,75 +49,83 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text("🖖 Bienvenido, ¿Que te gustaria hacer?", reply_markup=reply_markup)
 
 
+# ------ Reservas -----------------
 async def reservas(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     if update.message:
-        await update.message.reply_text("Fecha de Inicio y Hora de Inicio\nFormato: AAAA-MM-DD HH:MM")
+        await update.message.reply_text("Fecha y Hora de Inicio\nFormato: AAAA-MM-DD HH:MM")
     elif update.callback_query:
-        await update.callback_query.message.reply_text("Fecha de Inicio y Hora de Inicio\nFormato: AAAA-MM-DD HH:MM")
+        await update.callback_query.message.reply_text("Fecha y Hora de Inicio\nFormato: AAAA-MM-DD HH:MM")
     context.user_data['awaiting_start_time'] = True
     print(f"User Data after /reservas: {context.user_data}")  # Debugging line
 
+
+# ------ Precios + Informacion -------
+
 async def servicios_mapping(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    # Detalles y precios de los servicios de mapping
-    servicios = [
-        
-        {
-            "nombre": "Mapping Accesible Normal", 
-            "precio": "$60.000", 
-            "detalles": "Mapping en estructuras predeterminadas, No live VJ.",
-            "Computadora": " Dell, 8Gb Ram, Radeon Graphics AMD, No GPU",
-            "Proyector": " No incluye proyector"
-        },
-        {
-            "nombre": "Mapping Accesible Normal + Proyector", 
-            "precio": "$110.000", 
-            "detalles": "Mapping en estructuras predeterminadas, No live VJ.",
-            "Computadora": " Dell, 8Gb Ram, Radeon Graphics AMD, No GPU",
-            "Proyector": " Si incluye proyector 4200 Lumenes"
-        },
-        {
-            "nombre": "Mapping Accesible Medium", 
-            "precio": "$90.000", 
-            "detalles": "Mapping en estructuras predeterminadas, Live VJ.",
-            "Computadora": " Lenovo Legion, 24Gb Ram, AMD Ryzen 5 5600H with Radeon Graphics 3.30 GHz, NVIDIA GeForce RTX 3060",
-            "Proyector": " No incluye Proyector"
-        },
-        {
-            "nombre": "Mapping Accesible Medium + Proyector", 
-            "precio": "$150.000", 
-            "detalles": "Mapping en estructuras predeterminadas, Live VJ.",
-            "Computadora": " Lenovo Legion, 24Gb Ram, AMD Ryzen 5 5600H with Radeon Graphics 3.30 GHz, NVIDIA GeForce RTX 3060",
-            "Proyector": " Si incluye proyector 4200 Lumenes"
-        },
-        {
-            "nombre": "Mapping Personalizado", 
-            "precio": "A consultar", 
-            "detalles": "Proyección personalizada según las necesidades del cliente.",
-            "Computadora": " A consultar",
-            "Proyector": " A consultar"
-        }
-    ]
-
-    texto_servicios = "🖼️ **Nuestros servicios de mapping:**\n\n"
-
-    for servicio in servicios:
-        texto_servicios += (
-            f"📌 *{servicio['nombre']}*\n"
-            f"💲 Precio: {servicio['precio']}\n"
-            f"📝 Detalles: {servicio['detalles']}\n"
-            f"💻 Computadora: {servicio['Computadora']}\n"
-            f"📽️ Proyector: {servicio['Proyector']}\n"
-            "--------------------------------\n\n"
-        )
-
-    texto_servicios += f"⭕ **Informacion Importarte:** \nCada servicio de mapping incluye un técnico que se encargará de la instalación y ejecución del mapping. El precio no incluye el transporte del técnico ni el transporte de los equipos.\n\n⭕ **Reservas Validas:** \nPara que tu servicio quede 100% reservada, debes realizar el pago del 50% del valor total del servicio. El pago se realiza por transferencia bancaria y el comprobante debe ser enviado al correo\n\n"
-
     
+    if update.callback_query:
+    # Detalles y precios de los servicios de mapping
+        servicios = [
+            
+            {
+                "nombre": "Mapping Accesible Normal", 
+                "precio": "$60.000", 
+                "detalles": "Mapping en estructuras predeterminadas, No live VJ.",
+                "Computadora": " Dell, 8Gb Ram, Radeon Graphics AMD, No GPU",
+                "Proyector": " No incluye proyector"
+            },
+            {
+                "nombre": "Mapping Accesible Normal + Proyector", 
+                "precio": "$110.000", 
+                "detalles": "Mapping en estructuras predeterminadas, No live VJ.",
+                "Computadora": " Dell, 8Gb Ram, Radeon Graphics AMD, No GPU",
+                "Proyector": " Si incluye proyector 4200 Lumenes"
+            },
+            {
+                "nombre": "Mapping Accesible Medium", 
+                "precio": "$90.000", 
+                "detalles": "Mapping en estructuras predeterminadas, Live VJ.",
+                "Computadora": " Lenovo Legion, 24Gb Ram, AMD Ryzen 5 5600H with Radeon Graphics 3.30 GHz, NVIDIA GeForce RTX 3060",
+                "Proyector": " No incluye Proyector"
+            },
+            {
+                "nombre": "Mapping Accesible Medium + Proyector", 
+                "precio": "$150.000", 
+                "detalles": "Mapping en estructuras predeterminadas, Live VJ.",
+                "Computadora": " Lenovo Legion, 24Gb Ram, AMD Ryzen 5 5600H with Radeon Graphics 3.30 GHz, NVIDIA GeForce RTX 3060",
+                "Proyector": " Si incluye proyector 4200 Lumenes"
+            },
+            {
+                "nombre": "Mapping Personalizado", 
+                "precio": "A consultar", 
+                "detalles": "Proyección personalizada según las necesidades del cliente.",
+                "Computadora": " A consultar",
+                "Proyector": " A consultar"
+            }
+        ]
 
+        texto_servicios = "🖼️ **Nuestros servicios de mapping:**\n\n"
 
-    await update.message.reply_text(texto_servicios, parse_mode='Markdown')
+        for servicio in servicios:
+            texto_servicios += (
+                f"📌 *{servicio['nombre']}*\n"
+                f"💲 Precio: {servicio['precio']}\n"
+                f"📝 Detalles: {servicio['detalles']}\n"
+                f"💻 Computadora: {servicio['Computadora']}\n"
+                f"📽️ Proyector: {servicio['Proyector']}\n"
+                "--------------------------------\n\n"
+            )
 
+        texto_servicios += f"⭕ **Informacion Importarte:** \nCada servicio de mapping incluye un técnico que se encargará de la instalación y ejecución del mapping. El precio no incluye el transporte del técnico ni el transporte de los equipos.\n\n⭕ **Reservas Validas:** \nPara que tu servicio quede 100% reservada, debes realizar el pago del 50% del valor total del servicio. El pago se realiza por transferencia bancaria y el comprobante debe ser enviado al correo\n\n"
+
+        texto_servicios += "\n📞 **Contacto:**\nPara más información o reservas, puedes contactarnos a través de nuestro correo:\nlit.io30303@gmail.com"
+        texto_servicios += "\n\n📖 **Reservar:**\nPara reservar, enviar /reservas\n\n"
+
+        await update.callback_query.edit_message_text(text=texto_servicios, parse_mode='Markdown')
+        #await update.message.reply_text(texto_servicios, parse_mode='Markdown')
+
+# ------ Button -----------------
 
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     
@@ -127,6 +139,8 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await query.edit_message_text(text="Nuestro horario es de lunes a viernes de 9:00 a 18:00.")
     elif query.data == 'contacto':
         await query.edit_message_text(text="Puedes enviarme un correo directo a lit.io30303@gmail.com")
+    elif query.data == 'masinformacion':
+        await servicios_mapping(update, context)
 
 
 
@@ -134,6 +148,7 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def help(update: Update, context: ContextTypes):
+
     await update.message.reply_text("Para abrir el menu de opciones presiona /start")
 
 async def horarios(update: Update, context: ContextTypes):
