@@ -5,6 +5,7 @@ services:
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python reservas_main.py"
     plan: free
+    runtime: python3.12.7
     envVars:
       - key: PORT
         value: 5000
