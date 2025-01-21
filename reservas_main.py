@@ -1,3 +1,4 @@
+from flask import Flask
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters,ContextTypes, CallbackQueryHandler, PreCheckoutQueryHandler
 import os
@@ -15,6 +16,12 @@ URL_IG = "https://www.instagram.com/lllit_3/"
 MAPS = "https://maps.app.goo.gl/JF7qNA8vXvBfKEu9A"
 
 calendar_manager = GoogleCalendarManager()
+
+flask_app = Flask(__name__)
+
+@flask_app.route('/')
+def index():
+    return "Bot de Reservas de Mapping está en funcionamiento."
 
 """
 Para setear los comandos aplicar esto en BotFather
@@ -342,3 +349,4 @@ def main() -> None:
 
 if __name__ == '__main__':
     main()
+    flask_app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
