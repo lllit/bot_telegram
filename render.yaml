@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: telegram-bot
+    name: lllit.bot
     env: python
     buildCommand: "pip install -r requirements.txt"
     startCommand: "python reservas_main.py"
