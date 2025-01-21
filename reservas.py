@@ -131,12 +131,19 @@ class GoogleCalendarManager:
             singleEvents=True,
             orderBy='startTime'
         ).execute()
+
         events = events_result.get('items', [])
         print(f"Found {len(events)} events")
 
 
         for event in events:
             print(f"Event: {event['summary']} from {event['start']['dateTime']} to {event['end']['dateTime']}")
+            
+            # Check if the requested time slot overlaps with any existing events
+            existing_start = datetime.fromisoformat(event['start']['dateTime'])
+            existing_end = datetime.fromisoformat(event['end']['dateTime'])
 
+            if (start_time < existing_end and end_time > existing_start):
+                return False
 
         return len(events) == 0

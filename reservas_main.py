@@ -225,8 +225,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             print(f"Start Time: {start_time}, End Time: {end_time}")  # Debugging line
 
             if calendar_manager.is_time_slot_available(start_time, end_time):
+
                 calendar_manager.create_event(title, start_time.isoformat(), end_time.isoformat(), 'America/Santiago')
+
                 await update.message.reply_text("Reserva creada exitosamente.")
+                
             else:
                 await update.message.reply_text("La fecha y hora seleccionadas ya están ocupadas. Por favor, elige otro horario.")
 
