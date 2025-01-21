@@ -3,7 +3,7 @@ services:
     name: lllit.bot
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "python reservas_main.py"
+    startCommand: "gunicorn -b 0.0.0.0:$PORT reservas_main:app"
     plan: free
     runtime: python3.12.7
     envVars:
