@@ -1,10 +1,3 @@
-# 🤖 Bot de telegram
-
-
--------
-
-
-
 # 🤖 Bot de Telegram para Servicios
 
 ¡Bienvenido al repositorio de **Bot de Telegram para Servicios**! Este bot te permite ver los precios de diversos servicios y agendar horas de reservas directamente en Google Calendar.
