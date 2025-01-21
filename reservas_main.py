@@ -242,9 +242,9 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(context.error)
-    if update.message:
+    if update and update.message:
         await update.message.reply_text('Ha ocurrido un error')
-    elif update.callback_query:
+    elif update and update.callback_query:
         await update.callback_query.message.reply_text('Ha ocurrido un error')
 
 
@@ -273,8 +273,8 @@ def main() -> None:
 
     # Iniciar bot
     print('Bot iniciado')
-    app.run_polling(allowed_updates=Update.ALL_TYPES)
 
+    app.run_polling(allowed_updates=Update.ALL_TYPES)
 
 if __name__ == '__main__':
     main()
