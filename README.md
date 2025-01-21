@@ -10,7 +10,17 @@
 
 ## 📚 Descripción
 
-Este proyecto es parte de mi desarrollo personal como estudiante de programación y visualista. Trabajo principalmente con proyectores y pantallas LED, utilizando **TouchDesigner**, un software de programación visual completo y versátil. Puedes obtener más información sobre TouchDesigner en su página oficial[1](https://derivative.ca/).
+Este bot está diseñado para facilitar la gestión de reservas y ofrecerte información detallada sobre nuestros servicios de mapping. Con nuestro bot, podrás:
+
+📖 Reservar Citas: Programa tus sesiones de mapping de manera rápida y sencilla.
+
+🎨 Conocer Nuestros Servicios: Obtén detalles y precios de nuestros servicios de mapping, desde opciones accesibles hasta soluciones personalizadas.
+
+⏱️ Consultar Horarios: Infórmate sobre nuestros horarios de atención para planificar tus reservas.
+
+📡 Ubicación: Encuentra nuestra ubicación fácilmente.
+
+📞 Contacto: Ponte en contacto con nosotros para cualquier consulta adicional.
 
 📖 [Reservas Main](https://github.com/lllit/bot_telegram/blob/main/reservas_main.py) Mi archivo principal, aqui es donde se maneja la logica del bot
 
