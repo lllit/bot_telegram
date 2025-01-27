@@ -1,0 +1,1 @@
+Esta carpeta sera una automatizacion en local para ingresar a mi servidor en la nube y reactivar el servicio todos los dias
